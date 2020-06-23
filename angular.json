@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "nestjs-mongoose-angular-demo"
+    }
+  },
+  "defaultProject": "nestjs-mongoose-angular-demo",
+  "cli": {
+    "analytics": "058d0ffb-9700-409d-8843-4db7a18a237b"
+  }
 }
