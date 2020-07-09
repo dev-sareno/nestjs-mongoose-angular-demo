@@ -15,6 +15,9 @@ pipelines:
           - ls -lha
           - npm install
           - npm update
+          - ng --version
+          - ng build --prod
+          - ls -lha
     - step:
         name: 'Create build'
         artifacts:
