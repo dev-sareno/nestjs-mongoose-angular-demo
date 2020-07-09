@@ -25,6 +25,7 @@ pipelines:
         script:
           - echo 'Creating build'
           - mkdir -p build  # Create directory "build"
+          - ls -lha
           - echo 'Compressing files'
           - tar -cjf "${BITBUCKET_BUILD_NUMBER}_dist.tar.bz2" dist/*  # Compress the dist/* directory
           - ls -lha
