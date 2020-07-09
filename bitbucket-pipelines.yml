@@ -15,6 +15,7 @@ pipelines:
           - ls -lha
           - npm install
           - npm update
+          - npm install -g @angular/cli
           - ng build --prod
           - ls -lha
     - step:
