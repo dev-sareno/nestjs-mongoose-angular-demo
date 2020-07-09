@@ -8,22 +8,18 @@ image: node:12.16
 pipelines:
   default:
     - step:
-        name: 'Build and test'
-        script:
-          - node -v
-          - npm -v
-          - ls -lha
-          - npm install
-          - npm update
-          - npm install -g @angular/cli
-          - ng build --prod
-          - ls -lha
-    - step:
         name: 'Create build'
         artifacts:
           - 'build/**'
         script:
+          - node -v && npm -v
+          - ls -lha
+          - npm install
+          - npm update
+          - npm install -g @angular/cli
           - echo 'Creating build'
+          - ng build --prod
+          - ls -lha
           - mkdir -p build  # Create directory "build"
           - ls -lha
           - echo 'Compressing files'
