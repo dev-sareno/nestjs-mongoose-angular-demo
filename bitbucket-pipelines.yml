@@ -57,6 +57,6 @@ pipelines:
                 && echo 'Removing all files /var/www/nestjs-mongoose-angular-demo/*' \
                 && rm -f /var/www/nestjs-mongoose-angular-demo/* \
                 && echo 'Moving to /var/www/nestjs-mongoose-angular-demo' \
-                && mv * /var/www/nestjs-mongoose-angular-demo \
+                && mv dist/nestjs-mongoose-angular-demo/* /var/www/nestjs-mongoose-angular-demo \
                 && ls -lha /var/www/nestjs-mongoose-angular-demo \
                 && rm -rf /opt/nestjs-mongodb.angular.sareno.me/cache/$BITBUCKET_BUILD_NUMBER
