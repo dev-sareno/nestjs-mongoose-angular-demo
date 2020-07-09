@@ -1,0 +1,62 @@
+# This is a sample build configuration for Docker.
+# Check our guides at https://confluence.atlassian.com/x/O1toN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: node:12.16
+
+pipelines:
+  default:
+    - step:
+        name: 'Build and test'
+        script:
+          - node -v
+          - npm -v
+          - ls -lha
+          - npm install
+          - npm update
+    - step:
+        name: 'Create build'
+        artifacts:
+          - 'build/**'
+        script:
+          - echo 'Creating build'
+          - mkdir -p build  # Create directory "build"
+          - echo 'Compressing files'
+          - tar -cjf "${BITBUCKET_BUILD_NUMBER}_dist.tar.bz2" dist/*  # Compress the dist/* directory
+          - ls -lha
+          - mv "${BITBUCKET_BUILD_NUMBER}_dist.tar.bz2" build  # Move file to build dir
+    - step:
+        name: 'Deploy to Development'
+        deployment: 'test'
+        script:
+          - pipe: 'atlassian/ssh-run:0.2.3'
+            variables:
+              SSH_USER: '$DEV_DEPLOY_USER'
+              SERVER: '$DEV_DEPLOY_SERVER'
+              COMMAND: |
+                ls -lha \
+                && mkdir -p /opt/nestjs-mongodb.angular.sareno.me/cache/$BITBUCKET_BUILD_NUMBER \
+                && cd /opt/nestjs-mongodb.angular.sareno.me/cache/$BITBUCKET_BUILD_NUMBER
+          - pipe: 'atlassian/scp-deploy:0.3.9'
+            variables:
+              USER: '$DEV_DEPLOY_USER'
+              SERVER: '$DEV_DEPLOY_SERVER'
+              REMOTE_PATH: '/opt/nestjs-mongodb.angular.sareno.me/cache/$BITBUCKET_BUILD_NUMBER'
+              LOCAL_PATH: 'build/*'
+          - pipe: 'atlassian/ssh-run:0.2.3'
+            variables:
+              SSH_USER: '$DEV_DEPLOY_USER'
+              SERVER: '$DEV_DEPLOY_SERVER'
+              COMMAND: |
+                echo 'Initializing' \
+                && cd /opt/nestjs-mongodb.angular.sareno.me/cache/$BITBUCKET_BUILD_NUMBER \
+                && ls -lha \
+                && tar xf ${BITBUCKET_BUILD_NUMBER}_dist.tar.bz2 \
+                && ls -lha \
+                && echo 'Removing all files /var/www/nestjs-mongoose-angular-demo/*' \
+                && rm -f /var/www/nestjs-mongoose-angular-demo/* \
+                && echo 'Moving to /var/www/nestjs-mongoose-angular-demo' \
+                && mv * /var/www/nestjs-mongoose-angular-demo \
+                && ls -lha /var/www/nestjs-mongoose-angular-demo \
+                && rm -rf /opt/nestjs-mongodb.angular.sareno.me/cache/$BITBUCKET_BUILD_NUMBER
