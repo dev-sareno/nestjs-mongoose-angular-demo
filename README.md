@@ -1,5 +1,10 @@
 # NestjsMongooseAngularDemo
 
+## Reference
+Angular + Nginx [https://medium.com/@thatisuday/serving-angular-app-on-nginx-server-7656166c2f1c](https://medium.com/@thatisuday/serving-angular-app-on-nginx-server-7656166c2f1c)
+
+#
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
 
 ## Development server
