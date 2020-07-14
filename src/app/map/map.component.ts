@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from "@angular/google-maps";
 import { ApiService } from "../api.service";
 import { of, Subscription } from "rxjs";
@@ -25,6 +25,8 @@ export class MapComponent implements OnInit {
   selectedPos?: google.maps.LatLng;
   selectedMarker: MapMarker;
 
+  private restaurants: RestaurantModel[];
+
   private mappedRestaurants: { key: string, model: RestaurantModel, }[] = [];
 
   private createLocationSubscriptions: { [key: number]: Subscription } = {};
@@ -39,12 +41,13 @@ export class MapComponent implements OnInit {
     this.createLocationSubscriptions[subsKey] = this.apiService.getRestaurants()
       .pipe(
         tap((restaurants: RestaurantModel[]) => {
+          this.restaurants = restaurants;
           this.mappedRestaurants = restaurants.map(i => {
-            const keyString = `${i.location.coordinates[0]},${i.location.coordinates[1]}`;
+            const keyString = `${i.location.coordinates[1]},${i.location.coordinates[0]}`;
             return { key: keyString, model: i }
           });
         }),
-        map((res: RestaurantModel[]) => res.map(i => ({ lat: i.location.coordinates[0], lng: i.location.coordinates[1] }))),
+        map((res: RestaurantModel[]) => res.map(i => ({ lat: i.location.coordinates[1], lng: i.location.coordinates[0] }))),
         tap((latLngList: google.maps.LatLngLiteral[]) => {
           for (const latLng of latLngList) {
             this.markerPositions.push(latLng);
@@ -95,14 +98,14 @@ export class MapComponent implements OnInit {
       name: this.inputName.nativeElement.value,
       address: this.inputAddress.nativeElement.value,
       location: {
-        coordinates: [selectedPos.lat(), selectedPos.lng()],
+        coordinates: [selectedPos.lng(), selectedPos.lat()],
         type: "Point",
       },
     })
       .pipe(
         tap(res => {
           console.log('Created');
-          const keyString = `${res.location.coordinates[0]},${res.location.coordinates[1]}`;
+          const keyString = `${res.location.coordinates[1]},${res.location.coordinates[0]}`;
           this.mappedRestaurants.push({ key: keyString, model: res })
           this.markerPositions.push(selectedPos.toJSON());
 
@@ -120,5 +123,18 @@ export class MapComponent implements OnInit {
         }),
       )
       .subscribe();
+  }
+
+  async run(): Promise<void> {
+    for (const res of this.restaurants) {
+      const lat = res.location.coordinates[50];
+      const lng = res.location.coordinates[51];
+      const mod = { ...res };
+      mod.location.coordinates = [lng, lat];
+      const response = await this.apiService.updateRestaurant(mod._id, mod).toPromise();
+      console.log('response=', response);
+    }
+
+    console.log('Done!');
   }
 }

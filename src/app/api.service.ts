@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { RestaurantModel } from "./models/restaurant.model";
 
@@ -18,5 +18,16 @@ export class ApiService {
 
   createRestaurant(data: RestaurantModel): Observable<RestaurantModel> {
     return this.http.post<RestaurantModel>(`api/restaurants`, data);
+  }
+
+  updateRestaurant(id: string, data: RestaurantModel): Observable<any> {
+    console.log('data', data)
+    return this.http.put(`api/restaurants/${id}`, data, {
+      headers: new HttpHeaders({
+        'Accept': 'text/plain',
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text'
+    });
   }
 }
