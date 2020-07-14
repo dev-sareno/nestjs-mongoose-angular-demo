@@ -105,6 +105,10 @@ export class MapComponent implements OnInit {
           const keyString = `${res.location.coordinates[0]},${res.location.coordinates[1]}`;
           this.mappedRestaurants.push({ key: keyString, model: res })
           this.markerPositions.push(selectedPos.toJSON());
+
+          // clear
+          this.selectedPos = null;
+          this.selectedMarker = null;
         }),
         catchError(err => {
           console.log('Creation failed', err);
