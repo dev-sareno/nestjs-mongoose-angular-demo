@@ -1,0 +1,14 @@
+<agm-map #map
+         class="map"
+         [latitude]="mapCenter.lat"
+         [longitude]="mapCenter.lng"
+         [zoom]="13"
+         [agmDrawingManager]="drawing">
+</agm-map>
+<agm-drawing-manager #drawing="agmDrawingManager"
+                     [drawingMode]="drawingMode"
+                     [circleOptions]="drawingCircleOption"
+                     [polygonOptions]="drawingPolygonOption"
+                     [polylineOptions]="drawingPolylineOption"
+                     (polylineComplete)="onPolylineCompleted($event)">
+</agm-drawing-manager>

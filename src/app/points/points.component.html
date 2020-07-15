@@ -1,0 +1,39 @@
+<agm-map #agmMap
+         class="map"
+         [latitude]="mapCenter.lat"
+         [longitude]="mapCenter.lng"
+         [zoom]="13"
+         (mapClick)="onMapClicked($event)">
+
+  <agm-marker *ngFor="let marker of markers"
+              [latitude]="marker.lat"
+              [longitude]="marker.lng"
+              [label]="marker.label"
+              [markerDraggable]="marker.draggable"
+              (markerClick)="onMarkerClicked($event)">
+
+    <agm-info-window #infoWindow>
+      <ng-template [ngIf]="marker.temporary">
+        <p>Lat: {{ marker.lat }}</p>
+        <p>Lng: {{ marker.lng }}</p>
+        <label>Name:</label>
+        <input #inputName type="text" autocomplete="off">
+        <br>
+        <label>Address:</label>
+        <input #inputAddress type="text" value="Davao City" autocomplete="off">
+        <br>
+        <br>
+        <button (click)="onAddLocationClicked(marker, infoWindow, inputName, inputAddress)">Add Location</button>
+      </ng-template>
+
+      <ng-template [ngIf]="!marker.temporary">
+        <p>Lat: {{ marker.lat }}</p>
+        <p>Lng: {{ marker.lng }}</p>
+        <p>Name: {{ getModel(marker).name}}</p>
+        <p>Address: {{ getModel(marker).address }}</p>
+      </ng-template>
+    </agm-info-window>
+
+  </agm-marker>
+
+</agm-map>

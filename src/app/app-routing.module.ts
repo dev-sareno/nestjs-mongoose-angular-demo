@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
-import { MapComponent } from "./map/map.component";
+import { BlocksComponent } from "./blocks/blocks.component";
+import { PointsComponent } from "./points/points.component";
 
 
 const routes: Routes = [
@@ -10,8 +11,12 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'map',
-    component: MapComponent,
+    path: 'blocks',
+    component: BlocksComponent,
+  },
+  {
+    path: 'points',
+    component: PointsComponent,
   },
   {
     path: '**',
