@@ -4,11 +4,21 @@
          [longitude]="mapCenter.lng"
          [zoom]="13"
          [agmDrawingManager]="drawing">
+  <agm-polygon *ngFor="let block of blocks"
+               [strokeColor]="'#D35400'"
+               [strokeWeight]="2"
+               [fillColor]="'#D35400'"
+               [fillOpacity]="0.7"
+               [paths]="block.paths"
+               [visible]="true">
+  </agm-polygon>
 </agm-map>
 <agm-drawing-manager #drawing="agmDrawingManager"
                      [drawingMode]="drawingMode"
+                     [drawingControlOptions]="drawingControlOptions"
                      [circleOptions]="drawingCircleOption"
                      [polygonOptions]="drawingPolygonOption"
+                     (polygonComplete)="onPolygonCompleted($event)"
                      [polylineOptions]="drawingPolylineOption"
                      (polylineComplete)="onPolylineCompleted($event)">
 </agm-drawing-manager>

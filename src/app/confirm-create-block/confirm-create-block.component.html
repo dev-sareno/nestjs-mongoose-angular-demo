@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Create Block</h1>
+<div mat-dialog-content>
+  <p>Enter block name:</p>
+  <mat-form-field>
+    <mat-label>Block name</mat-label>
+    <input matInput [(ngModel)]="blockName">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Block address</mat-label>
+    <input matInput [(ngModel)]="blockAddress">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClicked()">Cancel</button>
+  <button mat-button [mat-dialog-close]="{ name: blockName, address: blockAddress }" cdkFocusInitial>Save</button>
+</div>

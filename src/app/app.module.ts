@@ -10,6 +10,13 @@ import { AgmCoreModule } from '@agm/core';
 import { AgmDrawingModule } from '@agm/drawing';
 import { BlocksComponent } from './blocks/blocks.component';
 import { PointsComponent } from './points/points.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import { ConfirmCreateBlockComponent } from './confirm-create-block/confirm-create-block.component';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -17,7 +24,8 @@ import { PointsComponent } from './points/points.component';
     HomeComponent,
     MapComponent,
     BlocksComponent,
-    PointsComponent
+    PointsComponent,
+    ConfirmCreateBlockComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,9 +36,15 @@ import { PointsComponent } from './points/points.component';
       apiKey: 'AIzaSyCdGhRDOdt3fpmluXq9DMttOEIU-bBIehM',
       libraries: ['drawing']
     }),
-    AgmDrawingModule
+    AgmDrawingModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

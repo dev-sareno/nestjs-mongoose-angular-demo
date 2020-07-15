@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { RestaurantModel } from "./models/restaurant.model";
+import { BlockModel } from "./models/block.model";
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,13 @@ export class ApiService {
       }),
       responseType: 'text'
     });
+  }
+
+  createBlock(data: BlockModel): Observable<BlockModel> {
+    return this.http.post<BlockModel>(`api/blocks`, data);
+  }
+
+  getBlocks(): Observable<BlockModel[]> {
+    return this.http.get<BlockModel[]>(`api/blocks`);
   }
 }
