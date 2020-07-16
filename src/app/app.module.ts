@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from "@angular/common/http";
-import { MapComponent } from './map/map.component';
 import { CommonModule } from "@angular/common";
 import { AgmCoreModule } from '@agm/core';
 import { AgmDrawingModule } from '@agm/drawing';
@@ -27,7 +26,6 @@ import { BlockPointsComponent } from './block-points/block-points.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    MapComponent,
     BlocksComponent,
     PointsComponent,
     ConfirmCreateBlockComponent,
