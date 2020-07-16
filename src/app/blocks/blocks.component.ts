@@ -58,7 +58,7 @@ export class BlocksComponent implements OnInit, OnDestroy {
           console.log('blocks', blocks);
           blocks.forEach(block => {
             // reformat data
-            block.paths = [block.geometry.coordinates[0].map(coordinate => ({lat: coordinate[0], lng: coordinate[1]}))];
+            block.paths = [block.geometry.coordinates[0].map(coordinate => ({lat: coordinate[1], lng: coordinate[0]}))];
           });
           this.blocks = blocks;
         }),
@@ -86,7 +86,14 @@ export class BlocksComponent implements OnInit, OnDestroy {
   onPolygonCompleted($event: Polygon) {
     const path = $event.getPath().getArray()
       .map(i => i.toJSON())
-      .map(i => [i.lat, i.lng]);
+      .map(i => [i.lng, i.lat]);
+    const head = path[0];
+    let tail = path[path.length - 1];
+    if (head[0] !== tail[0] || head[1] !== tail[1]) {
+      // ensure the head and tail are same
+      path.push(head);
+    }
+
     console.log('path', path);
     const dialogRef = this.dialog.open(ConfirmCreateBlockComponent, {
       width: '250px',
@@ -114,7 +121,7 @@ export class BlocksComponent implements OnInit, OnDestroy {
           .pipe(
             tap(block => {
               console.log('block created', block);
-              block.paths = [block.geometry.coordinates[0].map(coordinate => ({lat: coordinate[0], lng: coordinate[1]}))];
+              block.paths = [block.geometry.coordinates[0].map(coordinate => ({lat: coordinate[1], lng: coordinate[0]}))];
               this.blocks.push(block);
               $event.setVisible(false);
             }),
