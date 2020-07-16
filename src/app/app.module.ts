@@ -21,6 +21,8 @@ import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { BlockPointsComponent } from './block-points/block-points.component';
+import { BlocksExploreComponent } from './blocks-explore/blocks-explore.component';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { BlockPointsComponent } from './block-points/block-points.component';
     PointsComponent,
     ConfirmCreateBlockComponent,
     BlockPointsComponent,
+    BlocksExploreComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { BlockPointsComponent } from './block-points/block-points.component';
     MatCardModule,
     MatIconModule,
     MatTooltipModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

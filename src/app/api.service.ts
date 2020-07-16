@@ -47,4 +47,13 @@ export class ApiService {
   getBlockPoints(blockId: string): Observable<RestaurantModel[]> {
     return this.http.get<RestaurantModel[]>(`api/blocks/${blockId}/points`);
   }
+
+  getBlockFromPoint(lat: number, lng: number): Observable<BlockModel | null> {
+    return this.http.get<BlockModel | null>(`api/blocks/from-point`, {
+      params: {
+        lat: lat.toString(),
+        lng: lng.toString(),
+      }
+    });
+  }
 }

@@ -31,6 +31,7 @@
         <p>Lng: {{ marker.lng }}</p>
         <p>Name: {{ getModel(marker).name}}</p>
         <p>Address: {{ getModel(marker).address }}</p>
+        <a mat-flat-button [routerLink]="['/blocks/explore', marker.lat, marker.lng]">Explore</a>
       </ng-template>
     </agm-info-window>
 

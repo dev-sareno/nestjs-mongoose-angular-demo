@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { BlocksComponent } from "./blocks/blocks.component";
 import { PointsComponent } from "./points/points.component";
+import { BlocksExploreComponent } from "./blocks-explore/blocks-explore.component";
 import { BlockPointsComponent } from "./block-points/block-points.component";
 
 
@@ -24,9 +25,13 @@ const routes: Routes = [
     component: BlockPointsComponent,
   },
   {
-    path: '**',
-    redirectTo: 'home',
-  }
+    path: 'blocks/explore/:latitude/:longitude',
+    component: BlocksExploreComponent,
+  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'home',
+  // }
 ];
 
 @NgModule({

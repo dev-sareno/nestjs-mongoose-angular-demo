@@ -1,0 +1,30 @@
+<agm-map #map
+         class="map"
+         [latitude]="mapCenter.lat"
+         [longitude]="mapCenter.lng"
+         [zoom]="13">
+  <agm-polygon *ngIf="block"
+               [strokeColor]="'#D35400'"
+               [strokeWeight]="2"
+               [fillColor]="'#D35400'"
+               [fillOpacity]="0.7"
+               [paths]="block.paths"
+               [visible]="true">
+  </agm-polygon>
+
+  <agm-marker *ngIf="marker"
+              [latitude]="marker.lat"
+              [longitude]="marker.lng"
+              [markerDraggable]="true"
+              (dragEnd)="onDragEnd($event)">
+    <agm-info-window>
+      <p>Latitude: {{ marker.lng }}</p>
+      <p>Longitude: {{ marker.lng }}</p>
+    </agm-info-window>
+  </agm-marker>
+</agm-map>
+
+<mat-progress-bar *ngIf="isLoading"
+                  class="loading"
+                  mode="indeterminate" >
+</mat-progress-bar>
