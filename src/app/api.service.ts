@@ -36,7 +36,15 @@ export class ApiService {
     return this.http.post<BlockModel>(`api/blocks`, data);
   }
 
+  getBlock(blockId: string): Observable<BlockModel> {
+    return this.http.get<BlockModel>(`api/blocks/${blockId}`);
+  }
+
   getBlocks(): Observable<BlockModel[]> {
     return this.http.get<BlockModel[]>(`api/blocks`);
+  }
+
+  getBlockPoints(blockId: string): Observable<RestaurantModel[]> {
+    return this.http.get<RestaurantModel[]>(`api/blocks/${blockId}/points`);
   }
 }

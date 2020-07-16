@@ -17,6 +17,11 @@ import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatListModule } from "@angular/material/list";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { BlockPointsComponent } from './block-points/block-points.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +31,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     BlocksComponent,
     PointsComponent,
     ConfirmCreateBlockComponent,
+    BlockPointsComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +49,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     MatInputModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    MatListModule,
+    MatCardModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from "./home/home.component";
 import { BlocksComponent } from "./blocks/blocks.component";
 import { PointsComponent } from "./points/points.component";
+import { BlockPointsComponent } from "./block-points/block-points.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'points',
     component: PointsComponent,
+  },
+  {
+    path: 'blocks/:block-id/points',
+    component: BlockPointsComponent,
   },
   {
     path: '**',

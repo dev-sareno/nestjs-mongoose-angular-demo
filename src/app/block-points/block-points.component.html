@@ -1,0 +1,24 @@
+<agm-map #map
+         class="map"
+         [latitude]="mapCenter.lat"
+         [longitude]="mapCenter.lng"
+         [zoom]="13">
+  <agm-polygon *ngIf="block"
+               [strokeColor]="'#D35400'"
+               [strokeWeight]="2"
+               [fillColor]="'#D35400'"
+               [fillOpacity]="0.7"
+               [paths]="block.paths"
+               [visible]="true">
+  </agm-polygon>
+
+  <agm-marker *ngFor="let point of points"
+              [latitude]="point.location.coordinates[1]"
+              [longitude]="point.location.coordinates[0]"
+              [markerDraggable]="false">
+    <agm-info-window>
+      <p>Name: {{ point.name }}</p>
+      <p>Address: {{ point.address }}</p>
+    </agm-info-window>
+  </agm-marker>
+</agm-map>

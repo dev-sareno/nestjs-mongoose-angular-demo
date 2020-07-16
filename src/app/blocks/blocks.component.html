@@ -3,22 +3,36 @@
          [latitude]="mapCenter.lat"
          [longitude]="mapCenter.lng"
          [zoom]="13"
-         [agmDrawingManager]="drawing">
+         [agmDrawingManager]="drawing"
+         (mouseover)="highlightPolygon(null)">
   <agm-polygon *ngFor="let block of blocks"
-               [strokeColor]="'#D35400'"
+               [strokeColor]="block.color"
                [strokeWeight]="2"
-               [fillColor]="'#D35400'"
+               [fillColor]="block.color"
                [fillOpacity]="0.7"
                [paths]="block.paths"
                [visible]="true">
   </agm-polygon>
 </agm-map>
 <agm-drawing-manager #drawing="agmDrawingManager"
-                     [drawingMode]="drawingMode"
                      [drawingControlOptions]="drawingControlOptions"
-                     [circleOptions]="drawingCircleOption"
                      [polygonOptions]="drawingPolygonOption"
-                     (polygonComplete)="onPolygonCompleted($event)"
-                     [polylineOptions]="drawingPolylineOption"
-                     (polylineComplete)="onPolylineCompleted($event)">
+                     (polygonComplete)="onPolygonCompleted($event)">
 </agm-drawing-manager>
+
+<div class="side-menu mat-elevation-z22">
+  <mat-card>
+    <mat-card-title>Blocks</mat-card-title>
+    <mat-card-content>
+      <mat-selection-list [multiple]="false">
+        <mat-list-option *ngFor="let block of blocks"
+                         (mouseover)="highlightPolygon(block)"
+                         (click)="onShowPointsClicked(block)"
+                         matTooltip="Click to show points">
+          <p mat-line> {{block.name}} </p>
+          <p mat-line> {{block.address}} </p>
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-card-content>
+  </mat-card>
+</div>

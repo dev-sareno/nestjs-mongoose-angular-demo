@@ -1,13 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ControlPosition, LatLngLiteral, Polygon, PolygonOptions, Polyline, PolylineOptions } from "@agm/core";
+import {
+  ControlPosition,
+  LatLngLiteral,
+  Polygon,
+  PolygonOptions,
+} from "@agm/core";
 import { DrawingControlOptions, OverlayType } from "@agm/drawing";
-import { CircleOptions } from "@agm/core/services/google-maps-types";
 import { MatDialog } from "@angular/material/dialog";
 import { ConfirmCreateBlockComponent } from "../confirm-create-block/confirm-create-block.component";
 import { ApiService } from "../api.service";
 import { BlockModel } from "../models/block.model";
 import { catchError, finalize, tap } from "rxjs/operators";
 import { of, Subscription } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-blocks',
@@ -21,18 +26,8 @@ export class BlocksComponent implements OnInit, OnDestroy {
     lng: 125.59250475697425,
   };
 
-  drawingMode: OverlayType = OverlayType.POLYGONE;
-  drawingCircleOption: CircleOptions = {
-    fillColor:'red',
-    radius: 150,
-  };
   drawingPolygonOption: PolygonOptions = {
     strokeColor: 'blue',
-    strokeOpacity: 1,
-    strokeWeight: 5,
-  };
-  drawingPolylineOption: PolylineOptions = {
-    strokeColor: 'green',
     strokeOpacity: 1,
     strokeWeight: 5,
   };
@@ -48,6 +43,7 @@ export class BlocksComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private apiService: ApiService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -59,6 +55,7 @@ export class BlocksComponent implements OnInit, OnDestroy {
           blocks.forEach(block => {
             // reformat data
             block.paths = [block.geometry.coordinates[0].map(coordinate => ({lat: coordinate[1], lng: coordinate[0]}))];
+            block.color = '#D35400';
           });
           this.blocks = blocks;
         }),
@@ -77,10 +74,6 @@ export class BlocksComponent implements OnInit, OnDestroy {
     for (const prop in this.createBlockSubscriptions) {
       this.createBlockSubscriptions[prop]?.unsubscribe();
     }
-  }
-
-  onPolylineCompleted($event: Polyline) {
-
   }
 
   onPolygonCompleted($event: Polygon) {
@@ -110,12 +103,13 @@ export class BlocksComponent implements OnInit, OnDestroy {
         const key = new Date().getTime();
         const data: BlockModel = {
           name: result.name,
-          address: result.name,
+          address: result.address,
           geometry: {
             type: 'Polygon',
             coordinates: [path],
           },
-          tags: ['block', 'Davao City', 'Philippines']
+          tags: ['block', 'Davao City', 'Philippines'],
+          color: '#D35400',
         }
         this.createBlockSubscriptions[key] = this.apiService.createBlock(data)
           .pipe(
@@ -139,5 +133,15 @@ export class BlocksComponent implements OnInit, OnDestroy {
         $event.setVisible(false);
       }
     });
+  }
+
+  onShowPointsClicked(block: BlockModel) {
+    this.router.navigate(['/blocks', block._id, 'points']).then();
+  }
+
+  highlightPolygon(block?: BlockModel | null) {
+    this.blocks.forEach(i => {
+      i.color = block && i._id === block._id ? '#2E86C1' : '#D35400';
+    })
   }
 }

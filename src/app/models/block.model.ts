@@ -1,5 +1,4 @@
 import { LatLngLiteral } from "@agm/core";
-import { LatLng } from "@agm/core/services/google-maps-types";
 
 export interface BlockModel {
   geometry: {
@@ -12,4 +11,5 @@ export interface BlockModel {
   address: string,
   __v?: 0,
   paths?: Array<Array<LatLngLiteral>>,
+  color: string,
 }
