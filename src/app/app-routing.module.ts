@@ -28,10 +28,10 @@ const routes: Routes = [
     path: 'blocks/explore/:latitude/:longitude',
     component: BlocksExploreComponent,
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'home',
-  // }
+  {
+    path: '**',
+    redirectTo: 'home',
+  }
 ];
 
 @NgModule({
