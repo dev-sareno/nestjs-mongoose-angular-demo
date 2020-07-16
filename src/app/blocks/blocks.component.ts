@@ -116,6 +116,7 @@ export class BlocksComponent implements OnInit, OnDestroy {
             tap(block => {
               console.log('block created', block);
               block.paths = [block.geometry.coordinates[0].map(coordinate => ({lat: coordinate[1], lng: coordinate[0]}))];
+              block.color = '#D35400';
               this.blocks.push(block);
               $event.setVisible(false);
             }),
