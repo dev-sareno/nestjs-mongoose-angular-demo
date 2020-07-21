@@ -1,0 +1,21 @@
+syntax = "proto3";
+package training.rpc;
+
+message Restaurant {
+  message Location {
+    message Coordinate {
+      repeated float latLng = 1;
+    }
+
+    Coordinate coordinate = 2;
+    string type = 3;
+  }
+
+  Location location = 4;
+  string name = 5;
+  string _id = 6;
+}
+
+message RpcResponse {
+  repeated Restaurant restaurants = 6;
+}

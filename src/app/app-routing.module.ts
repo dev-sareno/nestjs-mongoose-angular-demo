@@ -5,6 +5,7 @@ import { BlocksComponent } from "./blocks/blocks.component";
 import { PointsComponent } from "./points/points.component";
 import { BlocksExploreComponent } from "./blocks-explore/blocks-explore.component";
 import { BlockPointsComponent } from "./block-points/block-points.component";
+import { RpcComponent } from "./rpc/rpc.component";
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'blocks/explore/:latitude/:longitude',
     component: BlocksExploreComponent,
+  },
+  {
+    path: 'rpc',
+    component: RpcComponent,
   },
   {
     path: '**',

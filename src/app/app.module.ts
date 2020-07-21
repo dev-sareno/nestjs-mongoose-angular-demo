@@ -23,6 +23,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { BlockPointsComponent } from './block-points/block-points.component';
 import { BlocksExploreComponent } from './blocks-explore/blocks-explore.component';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { RpcComponent } from './rpc/rpc.component';
+import { MatRadioModule } from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     ConfirmCreateBlockComponent,
     BlockPointsComponent,
     BlocksExploreComponent,
+    RpcComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MatIconModule,
     MatTooltipModule,
     MatProgressBarModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

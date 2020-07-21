@@ -56,4 +56,27 @@ export class ApiService {
       }
     });
   }
+
+  getRpcDataBlob(limit: number, resType: string): Observable<ArrayBuffer> {
+    return this.http.get(`api/rpc`, {
+      params: {
+        'limit': limit.toString(),
+        'res-type': resType,
+      },
+      headers: new HttpHeaders({
+        'Accept': 'text/plain',
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'arraybuffer'
+    });
+  }
+
+  getRpcDataJson(limit: number, resType: string): Observable<any> {
+    return this.http.get(`api/rpc`, {
+      params: {
+        'limit': limit.toString(),
+        'res-type': resType,
+      }
+    });
+  }
 }

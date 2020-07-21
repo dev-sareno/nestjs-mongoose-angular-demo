@@ -1,0 +1,16 @@
+<div class="content">
+  <form (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Limit</mat-label>
+      <input matInput type="number" name="limit" value="100" [(ngModel)]="limit">
+    </mat-form-field>
+    <div>
+      <label>Return type:</label>
+      <mat-radio-group [(ngModel)]="returnType" name="returnType" style="display: block">
+        <mat-radio-button value="json" style="display: block">JSON</mat-radio-button>
+        <mat-radio-button value="blob" style="display: block">Blob</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <button type="submit" mat-raised-button color="primary" style="margin-top: 10px;">Get Data</button>
+  </form>
+</div>
